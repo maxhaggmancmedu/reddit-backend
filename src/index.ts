@@ -3,9 +3,11 @@ import mongoose from "mongoose";
 import "dotenv/config"
 import * as authController from './controllers/auth'
 import validateToken from "./middleware/validateToken";
+import cors from "cors";
 
 const app = express()
 
+app.use(cors())
 app.use(express.json())
 
 app.post('/register', authController.registerUser)
