@@ -4,9 +4,8 @@ import User from "../models/User";
 
 const validateToken = (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers['authorization']
-
     const token = authHeader && authHeader.split(' ')[1]
-
+    
     if (!token) {
         return res.status(401).json({ message: 'Not authenticated'})
     }
@@ -21,7 +20,7 @@ const validateToken = (req: Request, res: Response, next: NextFunction) => {
             return res.status(403).json({ message: 'Not authorized' });
         }
 
-        if (!await User.exists({ id: decodedPayload.userId})) {
+        if (!await User.exists({_id: decodedPayload.userId})) {
             return res.status(403).json({ message: 'Not authorized' });
         }
 

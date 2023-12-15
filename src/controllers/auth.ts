@@ -22,7 +22,6 @@ export const registerUser = async (req: Request, res: Response) => {
 }
 
 export const loginUser = async (req: Request, res: Response) => {
-    console.log(req.userId);
     try {
         const { username, password } = req.body;
        

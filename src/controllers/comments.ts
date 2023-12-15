@@ -5,7 +5,7 @@ import { assertDefined } from "../util/assertDefined"
 export const createComment = async (req: Request, res: Response) => {
     const { postId } = req.params
     const { userId } = req
-    // assertDefined(userId)
+    assertDefined(userId)
 
     const { commentBody } = req.body
 

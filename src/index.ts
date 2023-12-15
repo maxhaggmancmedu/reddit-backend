@@ -14,6 +14,7 @@ app.use(express.json())
 
 app.post('/register', authController.registerUser)
 app.post('/login', authController.loginUser)
+app.post('/token/refresh', authController.refreshJWT);
 app.get('/profile', validateToken, authController.profile)
 
 app.post('/posts', validateToken, postsController.createPost)
