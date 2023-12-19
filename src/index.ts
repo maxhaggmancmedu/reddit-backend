@@ -4,6 +4,7 @@ import "dotenv/config"
 import * as authController from './controllers/auth'
 import * as postsController from './controllers/posts'
 import * as commentsController from './controllers/comments'
+import * as votesController from './controllers/votes'
 import validateToken from "./middleware/validateToken";
 import cors from "cors";
 
@@ -20,6 +21,9 @@ app.get('/profile', validateToken, authController.profile)
 app.post('/posts', validateToken, postsController.createPost)
 app.get('/posts', postsController.getAllPosts)
 app.get('/posts/:id', postsController.getPost)
+
+app.post('/posts/:postId/upvote', validateToken, votesController.upvote)
+app.post('/posts/:postId/downvote', validateToken, votesController.downvote)
 
 app.post('/posts/:postId/comments', validateToken, commentsController.createComment)
 app.delete('/posts/:postId/comments/:commentId', validateToken, commentsController.deleteComment)
