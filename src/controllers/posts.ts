@@ -147,4 +147,28 @@ export const deletePost = async (req: Request, res: Response) => {
     await post.deleteOne()
 
     return res.status(200).json({ message: 'post deleted'})
-}  
+}
+
+export const editPost = async (req: Request, res: Response) => {
+    const { id } = req.params
+    const { userId } = req
+    assertDefined(userId)
+
+    const { title, link, body } = req.body
+
+    const post = await Post.findById(id)
+
+    if (!post) {
+        return res.status(404).json({ message: 'No post found for id: ' + id})
+    }
+
+    if (post.author.toString() !== userId) {
+        return res.status(403).json({ message: 'Not authorized' })
+    }
+
+    await post.updateOne({ title, link, body })
+
+    const updatedPost = await post.save()
+
+    return res.status(200).json(updatedPost)
+}

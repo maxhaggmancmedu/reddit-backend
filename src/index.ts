@@ -22,13 +22,14 @@ app.post('/posts', validateToken, postsController.createPost)
 app.get('/posts', postsController.getAllPosts)
 app.get('/posts/:id', postsController.getPost)
 app.delete('/posts/:id/delete', validateToken, postsController.deletePost)
+app.put('/posts/:id/edit', validateToken, postsController.editPost)
 
 app.post('/posts/:postId/upvote', validateToken, votesController.upvote)
 app.post('/posts/:postId/downvote', validateToken, votesController.downvote)
 
 app.post('/posts/:postId/comments', validateToken, commentsController.createComment)
 app.delete('/posts/:postId/comments/:commentId', validateToken, commentsController.deleteComment)
-app.put('/posts/:postId/comments/:commentId', validateToken, commentsController.editComment)
+app.put('/posts/:postId/comments/:commentId/edit', validateToken, commentsController.editComment)
 
 const mongoURL = process.env.DB_URL
 

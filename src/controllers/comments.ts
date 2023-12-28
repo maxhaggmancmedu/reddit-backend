@@ -59,8 +59,7 @@ export const editComment = async (req: Request, res: Response) => {
     const { userId } = req
     assertDefined(userId)
 
-    const { commentBody } = req.body
-
+    const { body } = req.body
     const post = await Post.findById(postId)
 
     if (!post) {
@@ -68,7 +67,6 @@ export const editComment = async (req: Request, res: Response) => {
     }
 
     const comment = post.comments.id(commentId)
-
     if (!comment) {
         return res.status(404).json({ message: 'No comment found for id: ' + commentId})
     }
@@ -77,7 +75,7 @@ export const editComment = async (req: Request, res: Response) => {
         return res.status(403).json({ message: 'Not authorized' })
     }
 
-    comment.updateOne({ body: commentBody })
+    comment.body = body
 
     const updatedPost = await post.save()
 
